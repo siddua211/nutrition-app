@@ -1,25 +1,51 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
+import Pages from './pages/Pages';
+import MacroCounter from './components/MacroCounter';
+import styled from 'styled-components';
+import Sidebar from './components/Sidebar';
 
 function App() {
+  
+  const [foods, setFoods] = useState([]);
+  const [totCals, setTotCals] = useState(0);
+  const [totCarbs, setTotCarbs] = useState(0);
+  const [totFats, setTotFats] = useState(0);
+  const [totProtiens, setTotProtiens] = useState(0);
+
+  const addFood = (food) => {
+    setFoods(prevState => [...prevState, food])
+    setTotCals(eval(totCals) + eval(food.calories))
+    setTotCarbs(eval(totCarbs) + eval(food.carbs))
+    setTotFats(eval(totFats) + eval(food.fats))
+    setTotProtiens(eval(totProtiens) + eval(food.protiens))
+    console.log(food)
+  }
+
+  const deleteFood = (id) => {
+    const foodToDel = foods.find(f => f.id === id)
+    const macros = [foodToDel.carbs, foodToDel.fats, foodToDel.protiens, foodToDel.calories]
+    setTotCals(eval(totCals) - eval(macros[3]))
+    setTotCarbs(eval(totCarbs) - eval(macros[0]))
+    setTotFats(eval(totFats) - eval(macros[1]))
+    setTotProtiens(eval(totProtiens) - eval(macros[2]))
+    setFoods(prevState => prevState.filter(f => f.id !== id))
+  }
+
+  const [isSidebar, setIsSidebar] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebar(!isSidebar);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+      <Pages isSidebar={isSidebar} toggleSidebar={toggleSidebar} addFood={addFood} totCals={totCals} totCarbs={totCarbs} totFats={totFats} totProtiens={totProtiens} foods={foods} deleteFood={deleteFood}/>
+      
+   </div>
   );
 }
+
+
 
 export default App;
