@@ -1,6 +1,8 @@
 import './App.css';
 import {useState} from 'react';
 import Pages from './pages/Pages';
+import {BrowserRouter} from 'react-router-dom';
+import LookForm from './components/LookForm'
 import MacroCounter from './components/MacroCounter';
 import styled from 'styled-components';
 import Sidebar from './components/Sidebar';
@@ -39,10 +41,10 @@ function App() {
   }
 
   return (
-    <div>
+    <BrowserRouter>
       <Pages isSidebar={isSidebar} toggleSidebar={toggleSidebar} addFood={addFood} totCals={totCals} totCarbs={totCarbs} totFats={totFats} totProtiens={totProtiens} foods={foods} deleteFood={deleteFood}/>
-      
-   </div>
+      <LookForm/>
+   </BrowserRouter>
   );
 }
 

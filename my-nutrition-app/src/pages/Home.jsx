@@ -1,5 +1,6 @@
 import React from 'react';
 import InputForm from '../components/InputForm';
+import LookForm from '../components/LookForm'
 import FoodList from '../components/FoodList';
 import {useState} from 'react';
 import styled from 'styled-components';
@@ -10,6 +11,7 @@ function Home({addFood, toggleSidebar, isSidebar, foods, deleteFood}) {
     <div>
         <Title>Home Page</Title>
         <InputForm addFood={addFood}/>
+        <LookForm/>
 
 
     </div>
